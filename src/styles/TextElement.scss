@@ -1,0 +1,138 @@
+.text-element {
+  position: absolute;
+  cursor: pointer;
+  padding: 8px;
+
+  &.selected {
+    outline: 2px solid #7c3aed;
+  }
+
+  .element-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+
+    .resize-handle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border: 2px solid #2196F3;
+      border-radius: 2px;
+      pointer-events: auto;
+
+      &.top-right {
+        top: -6px;
+        right: -6px;
+      }
+
+      &.top-left {
+        top: -6px;
+        left: -6px;
+      }
+
+      &.bottom-right {
+        bottom: -6px;
+        right: -6px;
+        cursor: nwse-resize;
+        width: 20px;
+        height: 20px;
+        background: #7c3aed;
+        border: 2px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: #7c3aed;
+      }
+    }
+  }
+
+  .move-icon {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    background: white;
+    color: rgba(124, 58, 237, 0.9);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(124, 58, 237, 0.9);
+      color: white;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .delete-icon {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: white;
+    color: rgba(255, 0, 0, 0.8);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 0, 0, 0.8);
+      color: white;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .text-content {
+    min-height: 100%;
+    outline: none;
+
+    &.placeholder {
+      font-style: italic;
+    }
+  }
+
+  .color-controls {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    display: flex;
+    gap: 15px;
+    padding: 4px;
+    border-radius: 10%;
+
+    .color-button {
+      width: 24px;
+      height: 24px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      border-radius: 40px;
+
+      &.selected {
+        border-color: white;
+      }
+    }
+  }
+}
