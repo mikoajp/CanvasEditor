@@ -201,6 +201,7 @@ const Canvas = () => {
                                     strokeWidth={element.strokeWidth}
                                     opacity={element.opacity}
                                     rotation={element.rotation}
+                                    points={element.points || ''}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
