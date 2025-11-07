@@ -147,6 +147,7 @@ const Canvas = () => {
                             return (
                                 <RectangleElement
                                     key={element.id}
+<<<<<<< HEAD
                                     id={element.id}
                                     type="rectangle"
                                     position={element.position}
@@ -157,6 +158,9 @@ const Canvas = () => {
                                     opacity={element.opacity}
                                     borderRadius={element.borderRadius}
                                     rotation={element.rotation}
+=======
+                                    {...element}
+>>>>>>> e374285 (feat(shapes): dodaj figury (prostokąt, koło, trójkąt) do edytora\n\n- Canvas: renderowanie Rectangle/Circle/Triangle + wsparcie zaznaczania, przeciągania, zmiany rozmiaru i usuwania\n- CanvasHandlers: handleAddRectangle/handleAddCircle/handleAddTriangle z wykorzystaniem shapeFactory\n- Toolbar: sekcja Shapes, przyciski dodawania figur oraz ShapeControls widoczne dla wybranych kształtów\n- LayersPanel: wsparcie dla nowych typów elementów\n- Styles: aktualizacje Toolbar.scss oraz dodane Style dla kształtów (ShapeControls.scss, ShapeElement.scss)\n- Types: rozszerzenie CanvasElement o ShapeElement\n- Constants/Utils: stałe kształtów i fabryka kształtów)
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
@@ -170,6 +174,7 @@ const Canvas = () => {
                             return (
                                 <CircleElement
                                     key={element.id}
+<<<<<<< HEAD
                                     id={element.id}
                                     type="circle"
                                     position={element.position}
@@ -179,6 +184,9 @@ const Canvas = () => {
                                     strokeWidth={element.strokeWidth}
                                     opacity={element.opacity}
                                     rotation={element.rotation}
+=======
+                                    {...element}
+>>>>>>> e374285 (feat(shapes): dodaj figury (prostokąt, koło, trójkąt) do edytora\n\n- Canvas: renderowanie Rectangle/Circle/Triangle + wsparcie zaznaczania, przeciągania, zmiany rozmiaru i usuwania\n- CanvasHandlers: handleAddRectangle/handleAddCircle/handleAddTriangle z wykorzystaniem shapeFactory\n- Toolbar: sekcja Shapes, przyciski dodawania figur oraz ShapeControls widoczne dla wybranych kształtów\n- LayersPanel: wsparcie dla nowych typów elementów\n- Styles: aktualizacje Toolbar.scss oraz dodane Style dla kształtów (ShapeControls.scss, ShapeElement.scss)\n- Types: rozszerzenie CanvasElement o ShapeElement\n- Constants/Utils: stałe kształtów i fabryka kształtów)
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
@@ -192,6 +200,7 @@ const Canvas = () => {
                             return (
                                 <TriangleElement
                                     key={element.id}
+<<<<<<< HEAD
                                     id={element.id}
                                     type="triangle"
                                     position={element.position}
@@ -202,6 +211,9 @@ const Canvas = () => {
                                     opacity={element.opacity}
                                     rotation={element.rotation}
                                     points={element.points || ''}
+=======
+                                    {...element}
+>>>>>>> e374285 (feat(shapes): dodaj figury (prostokąt, koło, trójkąt) do edytora\n\n- Canvas: renderowanie Rectangle/Circle/Triangle + wsparcie zaznaczania, przeciągania, zmiany rozmiaru i usuwania\n- CanvasHandlers: handleAddRectangle/handleAddCircle/handleAddTriangle z wykorzystaniem shapeFactory\n- Toolbar: sekcja Shapes, przyciski dodawania figur oraz ShapeControls widoczne dla wybranych kształtów\n- LayersPanel: wsparcie dla nowych typów elementów\n- Styles: aktualizacje Toolbar.scss oraz dodane Style dla kształtów (ShapeControls.scss, ShapeElement.scss)\n- Types: rozszerzenie CanvasElement o ShapeElement\n- Constants/Utils: stałe kształtów i fabryka kształtów)
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}

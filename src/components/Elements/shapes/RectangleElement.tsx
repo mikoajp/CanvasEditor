@@ -33,6 +33,7 @@ const RectangleElement: React.FC<RectangleElementProps> = ({
   const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const elementRef = useRef<HTMLDivElement>(null);
 
+<<<<<<< HEAD
   // Use onDeselect to allow clicking outside to deselect (fix TS6133 unused warning)
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,6 +56,9 @@ const RectangleElement: React.FC<RectangleElementProps> = ({
   }, [isSelected, onDeselect]);
 
   const handleResizeStart = (e: React.MouseEvent) => {
+=======
+  const handleResizeStart = (e: React.MouseEvent, direction: string) => {
+>>>>>>> e374285 (feat(shapes): dodaj figury (prostokąt, koło, trójkąt) do edytora\n\n- Canvas: renderowanie Rectangle/Circle/Triangle + wsparcie zaznaczania, przeciągania, zmiany rozmiaru i usuwania\n- CanvasHandlers: handleAddRectangle/handleAddCircle/handleAddTriangle z wykorzystaniem shapeFactory\n- Toolbar: sekcja Shapes, przyciski dodawania figur oraz ShapeControls widoczne dla wybranych kształtów\n- LayersPanel: wsparcie dla nowych typów elementów\n- Styles: aktualizacje Toolbar.scss oraz dodane Style dla kształtów (ShapeControls.scss, ShapeElement.scss)\n- Types: rozszerzenie CanvasElement o ShapeElement\n- Constants/Utils: stałe kształtów i fabryka kształtów)
     e.stopPropagation();
     setIsResizing(true);
     setResizeStart({
@@ -159,7 +163,11 @@ const RectangleElement: React.FC<RectangleElementProps> = ({
 
           <div
             className="resize-handle se"
+<<<<<<< HEAD
             onMouseDown={(e) => handleResizeStart(e)}
+=======
+            onMouseDown={(e) => handleResizeStart(e, 'se')}
+>>>>>>> e374285 (feat(shapes): dodaj figury (prostokąt, koło, trójkąt) do edytora\n\n- Canvas: renderowanie Rectangle/Circle/Triangle + wsparcie zaznaczania, przeciągania, zmiany rozmiaru i usuwania\n- CanvasHandlers: handleAddRectangle/handleAddCircle/handleAddTriangle z wykorzystaniem shapeFactory\n- Toolbar: sekcja Shapes, przyciski dodawania figur oraz ShapeControls widoczne dla wybranych kształtów\n- LayersPanel: wsparcie dla nowych typów elementów\n- Styles: aktualizacje Toolbar.scss oraz dodane Style dla kształtów (ShapeControls.scss, ShapeElement.scss)\n- Types: rozszerzenie CanvasElement o ShapeElement\n- Constants/Utils: stałe kształtów i fabryka kształtów)
             title="Resize"
           />
         </>
