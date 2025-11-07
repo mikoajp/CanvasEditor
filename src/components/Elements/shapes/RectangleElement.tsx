@@ -54,7 +54,7 @@ const RectangleElement: React.FC<RectangleElementProps> = ({
     };
   }, [isSelected, onDeselect]);
 
-  const handleResizeStart = (e: React.MouseEvent, direction: string) => {
+  const handleResizeStart = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsResizing(true);
     setResizeStart({

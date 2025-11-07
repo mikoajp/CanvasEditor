@@ -147,7 +147,15 @@ const Canvas = () => {
                             return (
                                 <RectangleElement
                                     key={element.id}
-                                    {...element}
+                                    id={element.id}
+                                    position={element.position}
+                                    size={element.size}
+                                    fill={element.fill}
+                                    stroke={element.stroke}
+                                    strokeWidth={element.strokeWidth}
+                                    opacity={element.opacity}
+                                    borderRadius={element.borderRadius}
+                                    rotation={element.rotation}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
@@ -161,7 +169,14 @@ const Canvas = () => {
                             return (
                                 <CircleElement
                                     key={element.id}
-                                    {...element}
+                                    id={element.id}
+                                    position={element.position}
+                                    size={element.size}
+                                    fill={element.fill}
+                                    stroke={element.stroke}
+                                    strokeWidth={element.strokeWidth}
+                                    opacity={element.opacity}
+                                    rotation={element.rotation}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
@@ -175,7 +190,14 @@ const Canvas = () => {
                             return (
                                 <TriangleElement
                                     key={element.id}
-                                    {...element}
+                                    id={element.id}
+                                    position={element.position}
+                                    size={element.size}
+                                    fill={element.fill}
+                                    stroke={element.stroke}
+                                    strokeWidth={element.strokeWidth}
+                                    opacity={element.opacity}
+                                    rotation={element.rotation}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
