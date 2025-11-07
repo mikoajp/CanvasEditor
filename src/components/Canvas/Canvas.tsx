@@ -4,6 +4,9 @@ import Toolbar from '../Toolbar/Toolbar';
 import LayersPanel from '../Layers/LayersPanel';
 import TextElementComponent from '../Element/TextElement';
 import ImageElementComponent from '../Element/ImageElement';
+import RectangleElement from '../Elements/shapes/RectangleElement';
+import CircleElement from '../Elements/shapes/CircleElement';
+import TriangleElement from '../Elements/shapes/TriangleElement';
 import ResetModal from './ResetModal';
 import CanvasPlaceholder from './CanvasPlaceholder';
 import { createHandlers } from './CanvasHandlers';
@@ -72,6 +75,9 @@ const Canvas = () => {
                 onReset={handlers.handleReset}
                 onAddText={handlers.handleAddText}
                 onAddImage={handlers.handleAddImage}
+                onAddRectangle={handlers.handleAddRectangle}
+                onAddCircle={handlers.handleAddCircle}
+                onAddTriangle={handlers.handleAddTriangle}
                 onSetBackgroundImage={handlers.handleSetBackgroundImage}
                 onExport={handlers.handleExport}
             />
@@ -128,6 +134,48 @@ const Canvas = () => {
                                     src={element.src}
                                     position={element.position}
                                     size={element.size}
+                                    isSelected={selectedId === element.id}
+                                    onSelect={selectElement}
+                                    onDeselect={handlers.handleDeselect}
+                                    onDragStart={handlers.handleMouseDown}
+                                    onResize={handlers.handleResize}
+                                    onDelete={() => deleteElement(element.id)}
+                                />
+                            );
+                        }
+                        if (element.type === 'rectangle') {
+                            return (
+                                <RectangleElement
+                                    key={element.id}
+                                    {...element}
+                                    isSelected={selectedId === element.id}
+                                    onSelect={selectElement}
+                                    onDeselect={handlers.handleDeselect}
+                                    onDragStart={handlers.handleMouseDown}
+                                    onResize={handlers.handleResize}
+                                    onDelete={() => deleteElement(element.id)}
+                                />
+                            );
+                        }
+                        if (element.type === 'circle') {
+                            return (
+                                <CircleElement
+                                    key={element.id}
+                                    {...element}
+                                    isSelected={selectedId === element.id}
+                                    onSelect={selectElement}
+                                    onDeselect={handlers.handleDeselect}
+                                    onDragStart={handlers.handleMouseDown}
+                                    onResize={handlers.handleResize}
+                                    onDelete={() => deleteElement(element.id)}
+                                />
+                            );
+                        }
+                        if (element.type === 'triangle') {
+                            return (
+                                <TriangleElement
+                                    key={element.id}
+                                    {...element}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}

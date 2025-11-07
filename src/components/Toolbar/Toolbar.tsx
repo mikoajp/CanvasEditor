@@ -1,12 +1,16 @@
 import React, { ChangeEvent } from 'react';
-import { Type, Image as ImageIcon, RotateCcw, Undo, Redo, Copy } from 'lucide-react';
+import { Type, Image as ImageIcon, RotateCcw, Undo, Redo, Copy, Square, Circle, Triangle } from 'lucide-react';
 import { useCanvasStore } from '../../store/canvasStore';
 import TextControls from '../Element/TextControls';
+import ShapeControls from '../Elements/ShapeControls';
 import '../.././styles/Toolbar.scss';
 
 interface ToolbarProps {
     onAddText: () => void;
     onAddImage: (file: File) => void;
+    onAddRectangle: () => void;
+    onAddCircle: () => void;
+    onAddTriangle: () => void;
     onSetBackgroundImage: (file: File) => void;
     onExport: () => void;
     onReset: () => void;
@@ -15,6 +19,9 @@ interface ToolbarProps {
 const Toolbar: React.FC<ToolbarProps> = ({
                                              onAddText,
                                              onAddImage,
+                                             onAddRectangle,
+                                             onAddCircle,
+                                             onAddTriangle,
                                              onSetBackgroundImage,
                                              onExport,
                                              onReset
@@ -32,6 +39,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
     // Get selected element
     const selectedElement = elements.find(el => el.id === selectedElementId);
     const isTextSelected = selectedElement?.type === 'text';
+    const isShapeSelected = selectedElement && ['rectangle', 'circle', 'triangle', 'star', 'line'].includes(selectedElement.type);
 
     const handleBackgroundImage = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -129,6 +137,27 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 </div>
             </div>
 
+            {/* Shapes Section */}
+            <div className="shapes-section">
+                <div className="section-header">
+                    <h3>Shapes</h3>
+                </div>
+                <div className="tools-grid">
+                    <button onClick={onAddRectangle} className="tool-item" title="Add Rectangle">
+                        <Square size={20} />
+                        <span>Rectangle</span>
+                    </button>
+                    <button onClick={onAddCircle} className="tool-item" title="Add Circle">
+                        <Circle size={20} />
+                        <span>Circle</span>
+                    </button>
+                    <button onClick={onAddTriangle} className="tool-item" title="Add Triangle">
+                        <Triangle size={20} />
+                        <span>Triangle</span>
+                    </button>
+                </div>
+            </div>
+
             {/* Text Controls - Show when text element is selected */}
             {isTextSelected && selectedElement && (
                 <div className="text-formatting-section">
@@ -146,6 +175,19 @@ const Toolbar: React.FC<ToolbarProps> = ({
                         lineHeight={selectedElement.lineHeight}
                         opacity={selectedElement.opacity}
                         color={selectedElement.color}
+                        onUpdate={updateElement}
+                    />
+                </div>
+            )}
+
+            {/* Shape Controls - Show when shape element is selected */}
+            {isShapeSelected && selectedElement && (
+                <div className="shape-formatting-section">
+                    <div className="section-header">
+                        <h3>Shape Properties</h3>
+                    </div>
+                    <ShapeControls
+                        element={selectedElement}
                         onUpdate={updateElement}
                     />
                 </div>

@@ -174,13 +174,24 @@ const LayersPanel: React.FC = () => {
             return element.content?.substring(0, 20) || 'Text';
         } else if (element.type === 'image') {
             return 'Image';
+        } else if (element.type === 'rectangle') {
+            return 'Rectangle';
+        } else if (element.type === 'circle') {
+            return 'Circle';
+        } else if (element.type === 'triangle') {
+            return 'Triangle';
         }
-        return 'element';
+        return element.type || 'Element';
     };
 
     const getElementIcon = (element: Element): string => {
         if (element.type === 'text') return '📝';
         if (element.type === 'image') return '🖼️';
+        if (element.type === 'rectangle') return '⬜';
+        if (element.type === 'circle') return '⭕';
+        if (element.type === 'triangle') return '🔺';
+        if (element.type === 'star') return '⭐';
+        if (element.type === 'line') return '➖';
         return '📦';
     };
 

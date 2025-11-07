@@ -1,4 +1,6 @@
-export type CanvasElement = TextElement | ImageElement;
+import { ShapeElement } from './shapes';
+
+export type CanvasElement = TextElement | ImageElement | ShapeElement;
 
 export interface TextElement {
     id: string;

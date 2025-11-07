@@ -50,10 +50,12 @@ $accent-color: #7c3aed;
     }
   }
 
-  // History section, add-content section, and text-formatting styles
+  // History section, add-content section, shapes section and formatting sections
   .history-section,
   .add-content-section,
-  .text-formatting-section {
+  .shapes-section,
+  .text-formatting-section,
+  .shape-formatting-section {
     padding: 1.5rem;
 
     .section-header {
@@ -140,6 +142,11 @@ $accent-color: #7c3aed;
   
   // Make history section grid have 3 columns (Undo, Redo, Duplicate)
   .history-section .tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // Make shapes section grid have 3 columns
+  .shapes-section .tools-grid {
     grid-template-columns: repeat(3, 1fr);
   }
   .export-button {
