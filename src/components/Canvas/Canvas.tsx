@@ -148,6 +148,7 @@ const Canvas = () => {
                                 <RectangleElement
                                     key={element.id}
                                     id={element.id}
+                                    type="rectangle"
                                     position={element.position}
                                     size={element.size}
                                     fill={element.fill}
@@ -170,6 +171,7 @@ const Canvas = () => {
                                 <CircleElement
                                     key={element.id}
                                     id={element.id}
+                                    type="circle"
                                     position={element.position}
                                     size={element.size}
                                     fill={element.fill}
@@ -191,6 +193,7 @@ const Canvas = () => {
                                 <TriangleElement
                                     key={element.id}
                                     id={element.id}
+                                    type="triangle"
                                     position={element.position}
                                     size={element.size}
                                     fill={element.fill}

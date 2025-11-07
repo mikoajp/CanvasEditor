@@ -159,7 +159,7 @@ const RectangleElement: React.FC<RectangleElementProps> = ({
 
           <div
             className="resize-handle se"
-            onMouseDown={(e) => handleResizeStart(e, 'se')}
+            onMouseDown={(e) => handleResizeStart(e)}
             title="Resize"
           />
         </>
