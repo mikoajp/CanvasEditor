@@ -51,6 +51,7 @@ const TextElement: React.FC<TextElementProps> = ({
                                                  }) => {
     const colors = ['#666666', '#FF0000', '#0000FF', '#ffffff', '#00FF00'];
     const elementRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -171,6 +172,7 @@ const TextElement: React.FC<TextElementProps> = ({
             )}
 
             <div
+                ref={contentRef}
                 contentEditable
                 className={`text-content ${!content ? 'placeholder' : ''}`}
                 style={{ 
@@ -185,6 +187,17 @@ const TextElement: React.FC<TextElementProps> = ({
                     opacity: opacity,
                 }}
                 onInput={(e) => onContentChange(id, e.currentTarget.textContent || '')}
+                onClick={(e) => e.stopPropagation()}
+                onDoubleClick={() => {
+                    if (contentRef.current) {
+                        const range = document.createRange();
+                        range.selectNodeContents(contentRef.current);
+                        range.collapse(false); // place caret at end
+                        const sel = window.getSelection();
+                        sel?.removeAllRanges();
+                        sel?.addRange(range);
+                    }
+                }}
                 suppressContentEditableWarning
             >
                 {content || 'Type your text here'}
