@@ -32,6 +32,27 @@ const TriangleElement: React.FC<TriangleElementProps> = ({
   const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const elementRef = useRef<HTMLDivElement>(null);
 
+  // Use onDeselect to support deselection when clicking outside (fix TS6133)
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const canvasEl = document.querySelector('.canvas');
+      if (
+        elementRef.current &&
+        !elementRef.current.contains(event.target as Node) &&
+        canvasEl &&
+        canvasEl.contains(event.target as Node)
+      ) {
+        onDeselect();
+      }
+    };
+    if (isSelected) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSelected, onDeselect]);
+
   const handleResizeStart = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsResizing(true);
