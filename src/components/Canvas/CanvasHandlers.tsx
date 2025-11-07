@@ -4,6 +4,7 @@ import { Background } from './Canvas';
 import React from "react";
 import { useCanvasStore } from '../../store/canvasStore';
 import { DEFAULT_TEXT_ELEMENT, DEFAULT_ELEMENT_POSITION } from '../../constants/defaults';
+import { createRectangle, createCircle, createTriangle } from '../../utils/shapeFactory';
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -90,6 +91,21 @@ export const createHandlers = ({
                 console.error('Error reading file:', error);
             };
             reader.readAsDataURL(file);
+        },
+
+        handleAddRectangle: () => {
+            const rectangle = createRectangle();
+            addElement(rectangle);
+        },
+
+        handleAddCircle: () => {
+            const circle = createCircle();
+            addElement(circle);
+        },
+
+        handleAddTriangle: () => {
+            const triangle = createTriangle();
+            addElement(triangle);
         },
 
         handleSetBackgroundImage: (file: File) => {
