@@ -53,6 +53,17 @@ const TextElement: React.FC<TextElementProps> = ({
     const elementRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
+    const placeCaretAtEnd = () => {
+        if (contentRef.current) {
+            const range = document.createRange();
+            range.selectNodeContents(contentRef.current);
+            range.collapse(false);
+            const sel = window.getSelection();
+            sel?.removeAllRanges();
+            sel?.addRange(range);
+        }
+    };
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             const canvasEl = document.querySelector('.canvas');
@@ -186,7 +197,7 @@ const TextElement: React.FC<TextElementProps> = ({
                     lineHeight: lineHeight,
                     opacity: opacity,
                 }}
-                onInput={(e) => onContentChange(id, e.currentTarget.textContent || '')}
+                onInput={(e) => { onContentChange(id, e.currentTarget.textContent || ''); placeCaretAtEnd(); }}
                 onClick={(e) => e.stopPropagation()}
                 onDoubleClick={() => {
                     if (contentRef.current) {
