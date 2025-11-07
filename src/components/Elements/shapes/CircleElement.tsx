@@ -32,8 +32,6 @@ const CircleElement: React.FC<CircleElementProps> = ({
   const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const elementRef = useRef<HTMLDivElement>(null);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   // Use onDeselect to support outside click deselection (fix TS6133)
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,10 +53,6 @@ const CircleElement: React.FC<CircleElementProps> = ({
     };
   }, [isSelected, onDeselect]);
 
-=======
->>>>>>> e374285 (feat(shapes): dodaj figury (prostokąt, koło, trójkąt) do edytora\n\n- Canvas: renderowanie Rectangle/Circle/Triangle + wsparcie zaznaczania, przeciągania, zmiany rozmiaru i usuwania\n- CanvasHandlers: handleAddRectangle/handleAddCircle/handleAddTriangle z wykorzystaniem shapeFactory\n- Toolbar: sekcja Shapes, przyciski dodawania figur oraz ShapeControls widoczne dla wybranych kształtów\n- LayersPanel: wsparcie dla nowych typów elementów\n- Styles: aktualizacje Toolbar.scss oraz dodane Style dla kształtów (ShapeControls.scss, ShapeElement.scss)\n- Types: rozszerzenie CanvasElement o ShapeElement\n- Constants/Utils: stałe kształtów i fabryka kształtów)
-=======
->>>>>>> e374285 (feat(shapes): dodaj figury (prostokąt, koło, trójkąt) do edytora\n\n- Canvas: renderowanie Rectangle/Circle/Triangle + wsparcie zaznaczania, przeciągania, zmiany rozmiaru i usuwania\n- CanvasHandlers: handleAddRectangle/handleAddCircle/handleAddTriangle z wykorzystaniem shapeFactory\n- Toolbar: sekcja Shapes, przyciski dodawania figur oraz ShapeControls widoczne dla wybranych kształtów\n- LayersPanel: wsparcie dla nowych typów elementów\n- Styles: aktualizacje Toolbar.scss oraz dodane Style dla kształtów (ShapeControls.scss, ShapeElement.scss)\n- Types: rozszerzenie CanvasElement o ShapeElement\n- Constants/Utils: stałe kształtów i fabryka kształtów)
   const handleResizeStart = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsResizing(true);
