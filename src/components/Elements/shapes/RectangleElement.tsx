@@ -55,8 +55,6 @@ const RectangleElement: React.FC<RectangleElementProps> = ({
   }, [isSelected, onDeselect]);
 
   const handleResizeStart = (e: React.MouseEvent) => {
-  const handleResizeStart = (e: React.MouseEvent) => {
-  const handleResizeStart = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsResizing(true);
     setResizeStart({
@@ -161,8 +159,6 @@ const RectangleElement: React.FC<RectangleElementProps> = ({
 
           <div
             className="resize-handle se"
-            onMouseDown={(e) => handleResizeStart(e)}
-            onMouseDown={(e) => handleResizeStart(e)}
             onMouseDown={(e) => handleResizeStart(e)}
             title="Resize"
           />
