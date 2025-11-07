@@ -128,8 +128,8 @@
 
 ### 3.1 Lokalna Infrastruktura Backend
 - [ ] **Stack**:
-  - Node.js + Express + SQLite (plik .db) LUB Lowdb (JSON) na start
-  - Opcjonalny MongoDB uruchamiany lokalnie jako kontener (docker-compose)
+  - Node.js + Express + PostgreSQL (docker) – transakcje, JSONB, indeksy
+  - Alternatywa: MongoDB lokalny kontener (docker-compose) jeśli preferowany model dokumentowy
 - [ ] **API endpoints (lokalne)**:
   - Auth (rejestracja, login, JWT lub prosty session token)
   - CRUD projektów (zapisy w katalogu /data/projects jako JSON + mini indeks w bazie)
@@ -151,8 +151,8 @@
   - Przywracanie poprzez wczytanie wersji
 - [ ] **Organizacja**:
   - Foldery w strukturze /data/projects (np. tagi = nazwy podfolderów)
-  - Wyszukiwanie: prosty indeks w SQLite (name, tags, updatedAt)
-  - Sortowanie lokalnie (bez serwisu zewnętrznego)
+  - Wyszukiwanie: indeksy w PostgreSQL (btree/GIN dla JSONB: name, tags, updatedAt)
+  - Sortowanie lokalnie po danych z bazy
 - [ ] **Dashboard**:
   - Lista projektów z wygenerowanymi miniaturami (cache w /data/thumbs)
   - Ostatnio edytowane z updatedAt
@@ -367,7 +367,7 @@
 
 ### Backend (Wariant Lokalny)
 - **Framework**: Express.js (lekki) – NestJS opcjonalnie później
-- **Database**: SQLite (plik) lub Lowdb JSON; MongoDB tylko lokalny kontener jeśli potrzebne
+- **Database**: PostgreSQL (docker) – migracje (drizzle/knex), JSONB na snapshoty; alternatywnie MongoDB lokalnie
 - **Auth**: Minimalny moduł JWT (bez zewnętrznych providerów) lub brak przy single-user
 - **Storage**: System plików + struktura katalogów (/data/projects, /data/assets, /data/versions)
 - **Real-time**: Socket.io lokalnie (bez skalowania)
