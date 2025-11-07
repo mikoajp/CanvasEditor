@@ -1,5 +1,5 @@
 import React from 'react';
-import { TriangleAlert } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 interface ResetModalProps {
     isOpen: boolean;
@@ -35,7 +35,7 @@ const ResetModal: React.FC<ResetModalProps> = ({ isOpen, onConfirm, onCancel }) 
                     display: 'flex',
                     justifyContent: 'center'
                 }}>
-                    <TriangleAlert size={200} color={'red'}/>
+                    <AlertTriangle size={200} color={'red'}/>
                 </div>
 
                 <h2 style={{

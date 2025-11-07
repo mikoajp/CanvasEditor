@@ -50,7 +50,10 @@ $accent-color: #7c3aed;
     }
   }
 
-  .add-content-section {
+  // History section, add-content section, and text-formatting styles
+  .history-section,
+  .add-content-section,
+  .text-formatting-section {
     padding: 1.5rem;
 
     .section-header {
@@ -64,7 +67,7 @@ $accent-color: #7c3aed;
         color: #64748b;
         align-items: center;
         gap: 0.5rem;
-
+        margin-bottom: 1rem;
       }
 
       .reset-button {
@@ -101,10 +104,23 @@ $accent-color: #7c3aed;
         cursor: pointer;
         transition: all 0.2s;
 
-        &:hover {
+        &:hover:not(:disabled) {
           background: #f1f5f9;
           transform: translateY(-2px);
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+          
+          svg {
+            color: #94a3b8;
+          }
+          
+          span {
+            color: #94a3b8;
+          }
         }
 
         svg {
@@ -120,6 +136,11 @@ $accent-color: #7c3aed;
         }
       }
     }
+  }
+  
+  // Make history section grid have 3 columns (Undo, Redo, Duplicate)
+  .history-section .tools-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
   .export-button {
     width: fit-content;

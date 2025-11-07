@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import { CanvasElement } from '../../types/elements';
+
 import Toolbar from '../Toolbar/Toolbar';
+import LayersPanel from '../Layers/LayersPanel';
 import TextElementComponent from '../Element/TextElement';
 import ImageElementComponent from '../Element/ImageElement';
 import ResetModal from './ResetModal';
 import CanvasPlaceholder from './CanvasPlaceholder';
 import { createHandlers } from './CanvasHandlers';
+import { useCanvasStore } from '../../store/canvasStore';
 import '../../styles/Canvas.scss';
 
 export interface Background {
@@ -13,35 +15,50 @@ export interface Background {
     value: string;
 }
 
-
 const Canvas = () => {
-    const [elements, setElements] = useState<CanvasElement[]>([]);
-    const [background, setBackground] = useState<Background>({ type: 'color', value: '#ffffff' });
-    const [selectedId, setSelectedId] = useState<string | null>(null);
+    // Zustand store
+    const elements = useCanvasStore((state) => state.elements);
+    const selectedId = useCanvasStore((state) => state.selectedElementId);
+    const canvasSettings = useCanvasStore((state) => state.canvasSettings);
+    const selectElement = useCanvasStore((state) => state.selectElement);
+
+    const deleteElement = useCanvasStore((state) => state.deleteElement);
+
+
+    // Local UI state (not part of history)
     const [isDragging, setIsDragging] = useState(false);
     const [startPos, setStartPos] = useState({ x: 0, y: 0 });
     const [showResetModal, setShowResetModal] = useState(false);
     const canvasRef = useRef<HTMLDivElement>(null);
 
+    // Backward compatibility for background (will be refactored later)
+    const background: Background = {
+        type: canvasSettings.backgroundImage ? 'image' : 'color',
+        value: canvasSettings.backgroundImage || canvasSettings.backgroundColor,
+    };
+
+    // Click outside to deselect
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
+            if (!canvasRef.current) return;
+            const toolbar = document.querySelector('.toolbar');
+            const layersPanel = document.querySelector('.layers-panel');
+            if (toolbar?.contains(e.target as Node) || layersPanel?.contains(e.target as Node)) {
+                return; // ignore clicks inside toolbar or layers
+            }
             if (canvasRef.current === e.target) {
-                setSelectedId(null);
+                selectElement(null);
             }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+    }, [selectElement]);
 
     const handlers = createHandlers({
-        setElements,
-        setBackground,
-        setSelectedId,
         setShowResetModal,
         setIsDragging,
         setStartPos,
-        elements,
         selectedId,
         isDragging,
         startPos,
@@ -51,6 +68,14 @@ const Canvas = () => {
 
     return (
         <div className="canvas-editor">
+            <Toolbar
+                onReset={handlers.handleReset}
+                onAddText={handlers.handleAddText}
+                onAddImage={handlers.handleAddImage}
+                onSetBackgroundImage={handlers.handleSetBackgroundImage}
+                onExport={handlers.handleExport}
+            />
+            
             <div className="canvas-area">
                 <div
                     className="canvas"
@@ -71,15 +96,27 @@ const Canvas = () => {
                             return (
                                 <TextElementComponent
                                     key={element.id}
-                                    {...element}
+                                    id={element.id}
+                                    content={element.content}
+                                    position={element.position}
+                                    size={element.size}
+                                    color={element.color}
+                                    fontSize={element.fontSize}
+                                    fontFamily={element.fontFamily}
+                                    fontWeight={element.fontWeight}
+                                    fontStyle={element.fontStyle}
+                                    textDecoration={element.textDecoration}
+                                    textAlign={element.textAlign}
+                                    lineHeight={element.lineHeight}
+                                    opacity={element.opacity}
                                     isSelected={selectedId === element.id}
-                                    onSelect={setSelectedId}
+                                    onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
                                     onDragStart={handlers.handleMouseDown}
                                     onContentChange={handlers.handleContentChange}
                                     onColorChange={handlers.handleColorChange}
                                     onResize={handlers.handleResize}
-                                    onDelete={handlers.handleDelete}
+                                    onDelete={() => deleteElement(element.id)}
                                 />
                             );
                         }
@@ -92,11 +129,11 @@ const Canvas = () => {
                                     position={element.position}
                                     size={element.size}
                                     isSelected={selectedId === element.id}
-                                    onSelect={setSelectedId}
+                                    onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
                                     onDragStart={handlers.handleMouseDown}
                                     onResize={handlers.handleResize}
-                                    onDelete={handlers.handleDelete}
+                                    onDelete={() => deleteElement(element.id)}
                                 />
                             );
                         }
@@ -105,13 +142,7 @@ const Canvas = () => {
                 </div>
             </div>
 
-            <Toolbar
-                onReset={handlers.handleReset}
-                onAddText={handlers.handleAddText}
-                onAddImage={handlers.handleAddImage}
-                onSetBackgroundImage={handlers.handleSetBackgroundImage}
-                onExport={handlers.handleExport}
-            />
+            <LayersPanel />
 
             <ResetModal
                 isOpen={showResetModal}

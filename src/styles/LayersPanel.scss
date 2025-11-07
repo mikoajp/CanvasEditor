@@ -1,0 +1,208 @@
+.layers-panel {
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .layers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fff;
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0;
+    }
+
+    .layer-count {
+      background: #f3f4f6;
+      color: #6b7280;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+
+  .layers-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      text-align: center;
+      color: #9ca3af;
+
+      p {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 0 0 0.5rem 0;
+      }
+
+      span {
+        font-size: 0.8rem;
+        color: #d1d5db;
+      }
+    }
+
+    .layer-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      margin-bottom: 0.25rem;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #f3f4f6;
+        border-color: #d1d5db;
+      }
+
+      &.selected {
+        background: #ede9fe;
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+      }
+
+      &.hidden {
+        opacity: 0.5;
+      }
+
+      &.locked {
+        .layer-drag-handle {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+      }
+
+      .layer-drag-handle {
+        display: flex;
+        align-items: center;
+        color: #9ca3af;
+        cursor: grab;
+
+        &:active {
+          cursor: grabbing;
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .layer-icon {
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+
+      .layer-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+
+        .layer-name {
+          font-size: 0.85rem;
+          font-weight: 500;
+          color: #1f2937;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .layer-type {
+          font-size: 0.7rem;
+          color: #9ca3af;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .layer-actions {
+        display: flex;
+        gap: 0.25rem;
+        opacity: 0;
+        transition: opacity 0.2s;
+
+        .layer-action-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.25rem;
+          background: transparent;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          color: #6b7280;
+          transition: all 0.2s;
+
+          &:hover {
+            background: #e5e7eb;
+            color: #1f2937;
+          }
+
+          &.danger:hover {
+            background: #fee2e2;
+            color: #dc2626;
+          }
+
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+
+      &:hover .layer-actions {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Scrollbar styling
+  .layers-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .layers-list::-webkit-scrollbar-track {
+    background: #f9fafb;
+  }
+
+  .layers-list::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+
+    &:hover {
+      background: #9ca3af;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .layers-panel {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+}

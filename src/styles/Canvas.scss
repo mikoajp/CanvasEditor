@@ -10,6 +10,7 @@ html, body {
   display: flex;
   background: #fff;
   overflow: hidden;
+  height: 100vh;
 
   .canvas-area {
     flex: 1;
@@ -18,9 +19,8 @@ html, body {
     justify-content: center;
     align-items: center;
     background: #f9fafb;
-    border-right: 1px solid #e5e7eb;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
 
     .canvas {
       width: 100%;
@@ -53,14 +53,15 @@ html, body {
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1280px) {
+    // On medium screens, stack vertically
     flex-direction: column;
+    height: auto;
 
     .canvas-area {
       width: 100vw;
-      height: 60vh;
-      border-right: none;
-      border-bottom: 1px solid #e5e7eb;
+      height: 50vh;
+      min-height: 400px;
 
       .canvas {
         width: 100%;
@@ -68,6 +69,13 @@ html, body {
         max-width: none;
         box-shadow: none;
       }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    // On mobile, make toolbar and layers panels take less space
+    .canvas-area {
+      height: 40vh;
     }
   }
 }

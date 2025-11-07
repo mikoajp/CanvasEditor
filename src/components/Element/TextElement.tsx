@@ -8,6 +8,14 @@ interface TextElementProps {
     position: { x: number; y: number };
     size: { width: number; height: number };
     color: string;
+    fontSize: number;
+    fontFamily?: string;
+    fontWeight?: number | 'normal' | 'bold';
+    fontStyle?: 'normal' | 'italic';
+    textDecoration?: 'none' | 'underline' | 'line-through';
+    textAlign?: 'left' | 'center' | 'right' | 'justify';
+    lineHeight?: number;
+    opacity?: number;
     isSelected: boolean;
     onSelect: (id: string) => void;
     onDeselect: () => void;
@@ -24,6 +32,14 @@ const TextElement: React.FC<TextElementProps> = ({
                                                      position,
                                                      size,
                                                      color,
+                                                     fontSize,
+                                                     fontFamily = 'Inter',
+                                                     fontWeight = 400,
+                                                     fontStyle = 'normal',
+                                                     textDecoration = 'none',
+                                                     textAlign = 'left',
+                                                     lineHeight = 1.4,
+                                                     opacity = 1,
                                                      isSelected,
                                                      onSelect,
                                                      onDeselect,
@@ -38,7 +54,13 @@ const TextElement: React.FC<TextElementProps> = ({
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (elementRef.current && !elementRef.current.contains(event.target as Node)) {
+            const canvasEl = document.querySelector('.canvas');
+            if (
+                elementRef.current &&
+                !elementRef.current.contains(event.target as Node) &&
+                canvasEl &&
+                canvasEl.contains(event.target as Node)
+            ) {
                 onDeselect();
             }
         };
@@ -151,7 +173,17 @@ const TextElement: React.FC<TextElementProps> = ({
             <div
                 contentEditable
                 className={`text-content ${!content ? 'placeholder' : ''}`}
-                style={{ color: content ? color : '#999' }}
+                style={{ 
+                    color: content ? color : '#999',
+                    fontSize: `${fontSize}px`,
+                    fontFamily: fontFamily,
+                    fontWeight: fontWeight,
+                    fontStyle: fontStyle,
+                    textDecoration: textDecoration,
+                    textAlign: textAlign,
+                    lineHeight: lineHeight,
+                    opacity: opacity,
+                }}
                 onInput={(e) => onContentChange(id, e.currentTarget.textContent || '')}
                 suppressContentEditableWarning
             >
