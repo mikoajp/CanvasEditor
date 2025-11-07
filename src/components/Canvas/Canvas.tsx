@@ -147,7 +147,7 @@ const Canvas = () => {
                             return (
                                 <RectangleElement
                                     key={element.id}
-                                    {...element}
+                                    {...(element as any)}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
@@ -161,7 +161,7 @@ const Canvas = () => {
                             return (
                                 <CircleElement
                                     key={element.id}
-                                    {...element}
+                                    {...(element as any)}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}
@@ -175,7 +175,7 @@ const Canvas = () => {
                             return (
                                 <TriangleElement
                                     key={element.id}
-                                    {...element}
+                                    {...(element as any)}
                                     isSelected={selectedId === element.id}
                                     onSelect={selectElement}
                                     onDeselect={handlers.handleDeselect}

@@ -39,7 +39,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
     // Get selected element
     const selectedElement = elements.find(el => el.id === selectedElementId);
     const isTextSelected = selectedElement?.type === 'text';
-    const isShapeSelected = selectedElement && ['rectangle', 'circle', 'triangle', 'star', 'line'].includes(selectedElement.type);
+    const isShapeSelected = selectedElement && selectedElement.type !== 'text' && selectedElement.type !== 'image';
 
     const handleBackgroundImage = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
