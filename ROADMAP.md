@@ -137,6 +137,7 @@
   - Zarządzanie użytkownikami (jeśli multi-user; dla single-user można pominąć auth)
 
 ### 3.2 System Autoryzacji (Minimalny)
+Uzasadnienie: Środowisko lokalne/single-user nie wymaga zewnętrznych OAuth; prostsze sesje redukują złożoność i brak zależności chmurowych.
 - [ ] **Rejestracja i logowanie** (opcjonalne przy single-user):
   - Email + hasło (haszowane bcrypt)
   - Brak zewnętrznych OAuth (offline środowisko)
@@ -202,135 +203,10 @@
 
 ---
 
-## 🤖 FAZA 5: AI i Automatyzacja (4-6 tygodni)
-
-### 5.1 AI-Powered Features
-- [ ] **Background Removal**:
-  - Automatyczne usuwanie tła z obrazów
-  - API: remove.bg lub własny model
-- [ ] **AI Image Generation**:
-  - Integracja z DALL-E, Midjourney, Stable Diffusion
-  - Generowanie obrazów z promptów
-  - AI-powered image editing
-- [ ] **Smart Resize**:
-  - Automatyczne dopasowanie do różnych formatów
-  - Content-aware scaling
-
-### 5.2 Automatyzacja
-- [ ] **Magic Tools**:
-  - Auto-align elements
-  - Smart suggestions (kolory, układy)
-  - Design assistant chatbot
-- [ ] **Templates AI**:
-  - AI-generowane szablony
-  - Rekomendacje na podstawie content
-
-### 5.3 Zaawansowana Edycja
-- [ ] **AI Enhancement**:
-  - Upscaling obrazów
-  - Kolorowanie czarno-białych zdjęć
-  - Face detection i beautification
-
 ---
 
-## 💰 FAZA 6: Monetyzacja i Skalowanie (ongoing)
+(Usunięto dalsze fazy 5–9 aby skupić się wyłącznie na solidnym fundamencie lokalnym: funkcje edycji, backend lokalny, współpraca podstawowa. Rozszerzenia AI, monetyzacja, integracje i aplikacje mobilne poza aktualnym zakresem.)
 
-### 6.1 Model Biznesowy
-- [ ] **Freemium**:
-  - Darmowy tier (ograniczenia: projekty, storage, eksporty)
-  - Pro plan ($9-15/miesiąc)
-  - Business/Team plan ($29-49/miesiąc)
-- [ ] **Marketplace**:
-  - Płatne szablony premium
-  - Płatne czcionki i elementy
-  - Stock photos integration (Unsplash, Pexels)
-- [ ] **Enterprise**:
-  - Custom pricing
-  - Dedykowane wsparcie
-  - On-premise deployment
-
-### 6.2 Payment Integration
-- [ ] Stripe integration
-- [ ] Subscription management
-- [ ] Invoice generation
-- [ ] Usage tracking i billing
-
-### 6.3 Analytics i Tracking
-- [ ] Google Analytics
-- [ ] User behavior tracking (Hotjar, Mixpanel)
-- [ ] A/B testing
-- [ ] Performance monitoring (Sentry)
-
----
-
-## 🔧 FAZA 7: Optymalizacja i Performance (ongoing)
-
-### 7.1 Performance
-- [ ] **Frontend optimization**:
-  - Code splitting
-  - Lazy loading komponentów
-  - Image optimization (WebP)
-  - Service Workers (offline mode)
-- [ ] **Canvas optimization**:
-  - Virtual scrolling dla dużej liczby elementów
-  - WebGL rendering dla efektów
-  - Throttling i debouncing
-
-### 7.2 Mobile Support
-- [ ] **Responsive design**:
-  - Mobile-first approach
-  - Touch gestures
-  - Mobile toolbar
-- [ ] **Progressive Web App**:
-  - Instalacja jako app
-  - Offline functionality
-  - Push notifications
-
-### 7.3 Accessibility
-- [ ] WCAG 2.1 compliance
-- [ ] Keyboard shortcuts
-- [ ] Screen reader support
-- [ ] High contrast mode
-
----
-
-## 🌐 FAZA 8: Integracje i Ecosystem (3-4 tygodnie)
-
-### 8.1 Integracje (Opcjonalne, Lokalnie)
-- [ ] **Social Media**:
-  - Eksport plików lokalnie, bez publikacji bezpośredniej
-- [ ] **Cloud Storage**:
-  - Brak integracji – backup lokalny do ZIP
-- [ ] **Design Tools**:
-  - Import z/eksport do plików (SVG/PNG/JPG) – bez usług zewnętrznych
-
-### 8.2 API dla Developerów
-- [ ] Public REST API
-- [ ] Webhooks
-- [ ] SDK dla popularnych języków
-- [ ] API documentation (Swagger)
-
-### 8.3 Plugins System
-- [ ] Plugin architecture
-- [ ] Marketplace dla pluginów
-- [ ] SDK dla twórców pluginów
-
----
-
-## 📱 FAZA 9: Mobile Apps (6-8 tygodni)
-
-### 9.1 React Native Apps
-- [ ] iOS app
-- [ ] Android app
-- [ ] Sync z web version
-- [ ] Native features (camera, gallery)
-
-### 9.2 Desktop Apps
-- [ ] Electron app (Windows, Mac, Linux)
-- [ ] Offline mode
-- [ ] Better performance
-
----
 
 ## 🎯 PRIORYTETY - Co Robić Najpierw?
 
@@ -348,10 +224,7 @@
 9. **Mobile responsive** - dostępność
 
 ### 💎 NICE-TO-HAVE (6-12 miesięcy)
-10. **AI features** - innowacja i marketing
-11. **Real-time collaboration** - dla teamów
-12. **Mobile apps** - dodatkowy kanał
-13. **Marketplace** - monetyzacja
+(Usunięto wcześniejsze pozycje 10–13; fazy po 4 wycięte – pozostawiono koncentrację na wersji lokalnej MVP.)
 
 ---
 
