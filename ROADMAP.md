@@ -12,7 +12,7 @@
 - **Stack technologiczny**: React 18, TypeScript, React DnD, html2canvas, Lucide icons
 
 ### 🎯 Typ Aplikacji
-**Graficzny edytor online** - alternatywa dla Canva/Figma w przeglądarce
+**Lokalna aplikacja web** - działa offline (serwer lokalny lub Docker), alternatywa dla Canva/Figma bez hostingu
 
 ---
 
