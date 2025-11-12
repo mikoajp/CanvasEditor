@@ -5,10 +5,11 @@
 
 import { ShapeElement } from '../types/shapes';
 import { DEFAULT_RECTANGLE, DEFAULT_CIRCLE, DEFAULT_TRIANGLE, SHAPE_SIZES } from '../constants/shapes';
+import { generateElementId } from './elementUtils';
 
 export const createRectangle = (position = { x: 100, y: 100 }): ShapeElement => {
   return {
-    id: `rectangle-${Date.now()}`,
+    id: generateElementId('rectangle'),
     type: 'rectangle',
     position,
     size: SHAPE_SIZES.rectangle,
@@ -18,7 +19,7 @@ export const createRectangle = (position = { x: 100, y: 100 }): ShapeElement => 
 
 export const createCircle = (position = { x: 100, y: 100 }): ShapeElement => {
   return {
-    id: `circle-${Date.now()}`,
+    id: generateElementId('circle'),
     type: 'circle',
     position,
     size: SHAPE_SIZES.circle,
@@ -32,7 +33,7 @@ export const createTriangle = (position = { x: 100, y: 100 }): ShapeElement => {
   const points = `${width / 2},0 ${width},${height} 0,${height}`;
   
   return {
-    id: `triangle-${Date.now()}`,
+    id: generateElementId('triangle'),
     type: 'triangle',
     position,
     size: SHAPE_SIZES.triangle,
@@ -47,7 +48,7 @@ export const createStar = (position = { x: 100, y: 100 }): ShapeElement => {
   const points = generateStarPoints(width / 2, height / 2, 5, width / 2, width / 4);
   
   return {
-    id: `star-${Date.now()}`,
+    id: generateElementId('star'),
     type: 'star',
     position,
     size: SHAPE_SIZES.star,

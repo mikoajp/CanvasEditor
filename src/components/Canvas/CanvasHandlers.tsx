@@ -5,6 +5,7 @@ import React from "react";
 import { useCanvasStore } from '../../store/canvasStore';
 import { DEFAULT_TEXT_ELEMENT, DEFAULT_ELEMENT_POSITION } from '../../constants/defaults';
 import { createRectangle, createCircle, createTriangle } from '../../utils/shapeFactory';
+import { generateElementId } from '../../utils/elementUtils';
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -55,7 +56,7 @@ export const createHandlers = ({
 
         handleAddText: () => {
             const newText: TextElement = {
-                id: `text-${Date.now()}`,
+                id: generateElementId('text'),
                 type: 'text',
                 content: DEFAULT_TEXT_ELEMENT.content,
                 color: DEFAULT_TEXT_ELEMENT.color,
@@ -78,7 +79,7 @@ export const createHandlers = ({
             reader.onload = (e) => {
                 if (e.target?.result) {
                     const newImage: ImageElement = {
-                        id: `image-${Date.now()}`,
+                        id: generateElementId('image'),
                         type: 'image',
                         src: e.target.result as string,
                         position: { x: 50, y: 50 },

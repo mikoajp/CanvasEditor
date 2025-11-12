@@ -7,6 +7,7 @@ import { create } from 'zustand';
 import { produce } from 'immer';
 import { CanvasState, CanvasSettings } from './types';
 import { Element } from '../types/elements';
+import { cloneElement } from '../utils/elementUtils';
 
 const DEFAULT_CANVAS_SETTINGS: CanvasSettings = {
   width: 1080,
@@ -86,14 +87,7 @@ export const useCanvasStore = create<CanvasState>((set, get) => ({
         saveToHistory(state);
         const element = state.elements.find((el) => el.id === id);
         if (element) {
-          const newElement: Element = {
-            ...element,
-            id: `${element.type}-${Date.now()}`,
-            position: {
-              x: element.position.x + 20,
-              y: element.position.y + 20,
-            },
-          };
+          const newElement = cloneElement(element);
           state.elements.push(newElement);
           state.selectedElementId = newElement.id;
         }
