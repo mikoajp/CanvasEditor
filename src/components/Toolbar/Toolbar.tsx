@@ -1,8 +1,9 @@
 import React, { ChangeEvent } from 'react';
-import { Type, Image as ImageIcon, RotateCcw, Undo, Redo, Copy, Square, Circle, Triangle } from 'lucide-react';
+import { Type, Image as ImageIcon, RotateCcw, Undo, Redo, Copy, Square, Circle, Triangle, Save, Download, Upload } from 'lucide-react';
 import { useCanvasStore } from '../../store/canvasStore';
 import TextControls from '../Element/TextControls';
 import ShapeControls from '../Elements/ShapeControls';
+import { loadProjectFromFile } from '../../utils/projectStorage';
 import '../.././styles/Toolbar.scss';
 
 interface ToolbarProps {
@@ -35,6 +36,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
     const duplicateElement = useCanvasStore((state) => state.duplicateElement);
     const elements = useCanvasStore((state) => state.elements);
     const updateElement = useCanvasStore((state) => state.updateElement);
+    const saveProject = useCanvasStore((state) => state.saveProject);
+    const exportProject = useCanvasStore((state) => state.exportProject);
+    const loadProject = useCanvasStore((state) => state.loadProject);
     
     // Get selected element
     const selectedElement = elements.find(el => el.id === selectedElementId);
@@ -57,6 +61,38 @@ const Toolbar: React.FC<ToolbarProps> = ({
         }
     };
 
+    const handleSave = () => {
+        saveProject();
+        alert('Project saved to browser storage!');
+    };
+
+    const handleExportJSON = () => {
+        const projectName = prompt('Enter project name:', 'canvas-project');
+        if (projectName) {
+            exportProject(projectName);
+        }
+    };
+
+    const handleLoadProject = async (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const projectData = await loadProjectFromFile(file);
+            if (projectData) {
+                loadProject(
+                    projectData.elements,
+                    projectData.canvasSettings,
+                    projectData.layerState.hiddenLayers,
+                    projectData.layerState.lockedLayers
+                );
+                alert(`Project "${projectData.metadata.name}" loaded successfully!`);
+            } else {
+                alert('Failed to load project. Invalid file format.');
+            }
+        }
+        // Reset file input
+        e.target.value = '';
+    };
+
     return (
         <div className="toolbar">
             <div className="toolbar-header">
@@ -64,6 +100,41 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 <button className="reset-button" onClick={onReset}>
                     Reset <RotateCcw size={16} />
                 </button>
+            </div>
+
+            {/* Project Controls */}
+            <div className="project-section">
+                <div className="section-header">
+                    <h3>Project</h3>
+                </div>
+                <div className="tools-grid">
+                    <button 
+                        onClick={handleSave}
+                        className="tool-item"
+                        title="Save to Browser Storage"
+                    >
+                        <Save size={20} />
+                        <span>Save</span>
+                    </button>
+                    <button 
+                        onClick={handleExportJSON}
+                        className="tool-item"
+                        title="Export to JSON"
+                    >
+                        <Download size={20} />
+                        <span>Export</span>
+                    </button>
+                    <label className="tool-item" title="Load Project">
+                        <Upload size={20} />
+                        <span>Load</span>
+                        <input
+                            type="file"
+                            accept=".json"
+                            onChange={handleLoadProject}
+                            hidden
+                        />
+                    </label>
+                </div>
             </div>
 
             {/* History Controls */}

@@ -8,6 +8,7 @@ import { produce } from 'immer';
 import { CanvasState, CanvasSettings } from './types';
 import { Element } from '../types/elements';
 import { cloneElement } from '../utils/elementUtils';
+import { downloadProject, saveProjectToLocalStorage } from '../utils/projectStorage';
 
 const DEFAULT_CANVAS_SETTINGS: CanvasSettings = {
   width: 1080,
@@ -248,6 +249,50 @@ export const useCanvasStore = create<CanvasState>((set, get) => ({
         saveToHistory(state);
         state.elements = elements;
       })
+    );
+  },
+
+  // Project management
+  loadProject: (
+    elements: Element[],
+    canvasSettings: CanvasSettings,
+    hiddenLayers: string[],
+    lockedLayers: string[]
+  ) => {
+    set(
+      produce((state: CanvasState) => {
+        // Clear history when loading a project
+        state.history.past = [];
+        state.history.future = [];
+        
+        // Load project data
+        state.elements = elements;
+        state.canvasSettings = canvasSettings;
+        state.layerState.hiddenLayers = new Set(hiddenLayers);
+        state.layerState.lockedLayers = new Set(lockedLayers);
+        state.selectedElementId = null;
+      })
+    );
+  },
+
+  saveProject: () => {
+    const state = get();
+    saveProjectToLocalStorage(
+      state.elements,
+      state.canvasSettings,
+      state.layerState.hiddenLayers,
+      state.layerState.lockedLayers
+    );
+  },
+
+  exportProject: (projectName: string = 'canvas-project') => {
+    const state = get();
+    downloadProject(
+      state.elements,
+      state.canvasSettings,
+      state.layerState.hiddenLayers,
+      state.layerState.lockedLayers,
+      projectName
     );
   },
 }));

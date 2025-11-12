@@ -66,4 +66,14 @@ export interface CanvasState {
   // Actions - Bulk operations
   clearCanvas: () => void;
   setElements: (elements: Element[]) => void;
+  
+  // Actions - Project management
+  loadProject: (
+    elements: Element[],
+    canvasSettings: CanvasSettings,
+    hiddenLayers: string[],
+    lockedLayers: string[]
+  ) => void;
+  saveProject: () => void;
+  exportProject: (projectName?: string) => void;
 }
