@@ -41,6 +41,10 @@ export const useCanvasStore = create<CanvasState>((set, get) => ({
   elements: [],
   selectedElementId: null,
   canvasSettings: DEFAULT_CANVAS_SETTINGS,
+  layerState: {
+    hiddenLayers: new Set(),
+    lockedLayers: new Set(),
+  },
   history: {
     past: [],
     future: [],
@@ -77,6 +81,9 @@ export const useCanvasStore = create<CanvasState>((set, get) => ({
         if (state.selectedElementId === id) {
           state.selectedElementId = null;
         }
+        // Clean up layer state
+        state.layerState.hiddenLayers.delete(id);
+        state.layerState.lockedLayers.delete(id);
       })
     );
   },
@@ -128,6 +135,42 @@ export const useCanvasStore = create<CanvasState>((set, get) => ({
     if (index > 0) {
       get().moveElementToIndex(id, 0);
     }
+  },
+
+  toggleLayerVisibility: (id: string) => {
+    set(
+      produce((state: CanvasState) => {
+        if (state.layerState.hiddenLayers.has(id)) {
+          state.layerState.hiddenLayers.delete(id);
+        } else {
+          state.layerState.hiddenLayers.add(id);
+        }
+      })
+    );
+  },
+
+  toggleLayerLock: (id: string) => {
+    set(
+      produce((state: CanvasState) => {
+        if (state.layerState.lockedLayers.has(id)) {
+          state.layerState.lockedLayers.delete(id);
+        } else {
+          state.layerState.lockedLayers.add(id);
+          // Deselect if currently selected
+          if (state.selectedElementId === id) {
+            state.selectedElementId = null;
+          }
+        }
+      })
+    );
+  },
+
+  isLayerHidden: (id: string) => {
+    return get().layerState.hiddenLayers.has(id);
+  },
+
+  isLayerLocked: (id: string) => {
+    return get().layerState.lockedLayers.has(id);
   },
 
   // Canvas settings
@@ -193,6 +236,8 @@ export const useCanvasStore = create<CanvasState>((set, get) => ({
         saveToHistory(state);
         state.elements = [];
         state.selectedElementId = null;
+        state.layerState.hiddenLayers.clear();
+        state.layerState.lockedLayers.clear();
       })
     );
   },

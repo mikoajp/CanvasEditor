@@ -18,11 +18,17 @@ export interface HistoryState {
   future: Element[][];
 }
 
+export interface LayerState {
+  hiddenLayers: Set<string>;
+  lockedLayers: Set<string>;
+}
+
 export interface CanvasState {
   // Core state
   elements: Element[];
   selectedElementId: string | null;
   canvasSettings: CanvasSettings;
+  layerState: LayerState;
   
   // History
   history: {
@@ -43,6 +49,10 @@ export interface CanvasState {
   moveElementToIndex: (id: string, newIndex: number) => void;
   bringToFront: (id: string) => void;
   sendToBack: (id: string) => void;
+  toggleLayerVisibility: (id: string) => void;
+  toggleLayerLock: (id: string) => void;
+  isLayerHidden: (id: string) => boolean;
+  isLayerLocked: (id: string) => boolean;
   
   // Actions - Canvas settings
   updateCanvasSettings: (settings: Partial<CanvasSettings>) => void;

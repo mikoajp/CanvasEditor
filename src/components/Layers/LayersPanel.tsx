@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useCanvasStore } from '../../store/canvasStore';
 import { Eye, EyeOff, Lock, Unlock, Trash2, GripVertical } from 'lucide-react';
 import { Element } from '../../types/elements';
@@ -121,9 +121,10 @@ const LayersPanel: React.FC = () => {
     const selectElement = useCanvasStore((state) => state.selectElement);
     const deleteElement = useCanvasStore((state) => state.deleteElement);
     const setElements = useCanvasStore((state) => state.setElements);
-
-    const [hiddenLayers, setHiddenLayers] = useState<Set<string>>(new Set());
-    const [lockedLayers, setLockedLayers] = useState<Set<string>>(new Set());
+    const toggleLayerVisibility = useCanvasStore((state) => state.toggleLayerVisibility);
+    const toggleLayerLock = useCanvasStore((state) => state.toggleLayerLock);
+    const isLayerHidden = useCanvasStore((state) => state.isLayerHidden);
+    const isLayerLocked = useCanvasStore((state) => state.isLayerLocked);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -134,28 +135,12 @@ const LayersPanel: React.FC = () => {
 
     const toggleVisibility = (id: string, e: React.MouseEvent) => {
         e.stopPropagation();
-        setHiddenLayers(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(id)) {
-                newSet.delete(id);
-            } else {
-                newSet.add(id);
-            }
-            return newSet;
-        });
+        toggleLayerVisibility(id);
     };
 
     const toggleLock = (id: string, e: React.MouseEvent) => {
         e.stopPropagation();
-        setLockedLayers(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(id)) {
-                newSet.delete(id);
-            } else {
-                newSet.add(id);
-            }
-            return newSet;
-        });
+        toggleLayerLock(id);
     };
 
     const handleDelete = (id: string, e: React.MouseEvent) => {
@@ -164,7 +149,7 @@ const LayersPanel: React.FC = () => {
     };
 
     const handleSelect = (id: string) => {
-        if (!lockedLayers.has(id)) {
+        if (!isLayerLocked(id)) {
             selectElement(id);
         }
     };
@@ -236,8 +221,8 @@ const LayersPanel: React.FC = () => {
                         >
                             {reversedElements.map((element) => {
                                 const isSelected = element.id === selectedElementId;
-                                const isHidden = hiddenLayers.has(element.id);
-                                const isLocked = lockedLayers.has(element.id);
+                                const isHidden = isLayerHidden(element.id);
+                                const isLocked = isLayerLocked(element.id);
 
                                 return (
                                     <SortableLayerItem
